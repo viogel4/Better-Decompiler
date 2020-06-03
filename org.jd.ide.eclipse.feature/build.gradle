@@ -1,6 +1,8 @@
 apply plugin: 'java'
 
+archivesBaseName = "example-application"
+
 jar {
     from 'feature.xml'
-    archiveName baseName + '_' + version + '.' + extension
+    archiveFileName = archiveBaseName.get() + '_' + archiveVersion.get() + '.' + archiveExtension.get()
 }

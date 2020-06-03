@@ -1,6 +1,6 @@
 apply plugin: 'distribution'
 
-// Common configuration //
+// Common configuration
 allprojects {
 	version='2.0.0'
 }
@@ -8,9 +8,11 @@ allprojects {
 allprojects {
     repositories {
         maven {
+        	allowInsecureProtocol true
             url 'http://maven.aliyun.com/nexus/content/groups/public/'
         }
         maven {
+        	allowInsecureProtocol true
             url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'
         }
     }
