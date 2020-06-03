@@ -53,7 +53,31 @@ local.properties
 # Annotation Processing
 .apt_generated/
 
-# Scala IDE specific (Scala & Java development for Eclipse)
-.cache-main
-.scala_dependencies
-.worksheet
+
+# Java
+*.class
+*.jar
+
+# JD
+debug*
+
+# Eclipse
+.settings/
+bin/
+lib/
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/*
+
+# WinMerge
+*.bak
+

@@ -1,0 +1,38 @@
+apply plugin: 'distribution'
+
+// Common configuration //
+allprojects {
+	version='2.0.0'
+}
+
+subprojects.each { subproject ->
+    evaluationDependsOn(subproject.path)
+}
+
+distributions {
+	distZip {
+		// Create JAR files before final ZIP file
+		dependsOn subprojects.tasks['jar']		
+		// For each file, remove root directory  
+		eachFile { file ->
+        	String path = file.relativePath
+        	file.setPath(path.substring(path.indexOf('/')+1, path.length()))
+    	}
+	}
+
+	main {
+		contents {
+			into('features') {
+				from { 
+					fileTree 'org.jd.ide.eclipse.feature/build/libs'
+				}
+			}
+			into('plugins') {
+				from { 
+					fileTree 'org.jd.ide.eclipse.plugin/build/libs'
+				}
+			}
+			from 'org.jd.ide.eclipse.site/site.xml', 'LICENSE', 'NOTICE', 'README.md'
+		}
+	}
+}
