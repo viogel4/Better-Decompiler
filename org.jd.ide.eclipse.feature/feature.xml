@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
 <feature
       id="org.jd.ide.eclipse.feature"
       label="JD-Eclipse Plug-in"
@@ -15,7 +16,7 @@
    </copyright>
 
    <license url="http://www.gnu.org/licenses/gpl-3.0.html">
-      .
+   
                      GNU GENERAL PUBLIC LICENSE
 
                        Version 3, 29 June 2007
