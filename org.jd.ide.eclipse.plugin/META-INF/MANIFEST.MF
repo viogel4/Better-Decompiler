@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.ui,
 Bundle-Vendor: Java Decompiler
 Bundle-Activator: org.jd.ide.eclipse.JavaDecompilerPlugin
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: /lib/jd-core-1.0.7.jar,.
+Bundle-ClassPath: lib/jd-core-1.1.3.jar
 Export-Package: org.jd.core.v1,
  org.jd.ide.eclipse,
  org.jd.ide.eclipse.editors,
