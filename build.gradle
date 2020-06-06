@@ -20,6 +20,7 @@ subprojects.each { subproject ->
 }
 
 distributions {
+	//只发布一个zip包
 	distZip {
 		// Create JAR files before final ZIP file
 		dependsOn subprojects.tasks['jar']		
@@ -29,6 +30,9 @@ distributions {
         	file.setPath(path.substring(path.indexOf('/')+1, path.length()))
     	}
 	}
+	
+	//设置不发布tar包
+	distTar.enabled = false
 
 	main {
 		contents {
