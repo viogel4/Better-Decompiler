@@ -1,1 +1,23 @@
-dependenciesä¸­é…ç½®çš„implementation 'org.jd:jd-core:1.1.3' æ— æ³•è¢«æ‰“åŒ…åˆ° jaråŒ…ä¸­ã€‚
+Bundle-ClassPath: /lib/jd-core-1.1.3.jar ºóÃæÒª²»Òª¼ÓÒ»¸öµãÄØ£¿
+
+
+
+//×Ô¶¨ÒåÔ´ÂëÄ¿Â¼£¬µ«¶ÔÓ¦µÄÊä³öÄ¿Â¼Ä¬ÈÏÎªbin/main£¬ÈçºÎ¸ü¸Ä
+sourceSets {
+	main {
+		java {
+			srcDir 'src'
+		}
+	}
+}
+
+
+//ÉèÖÃ±àÒëºóÊä³öµÄÄ¬ÈÏÎ»ÖÃ
+eclipse {
+    classpath{
+        defaultOutputDir = file('bin')
+    }
+}
+
+
+ÉÏÃæµÄÅäÖÃ»áµ¼ÖÂ.classpathÖĞµÄÄ¿±êÄ¿Â¼±ä¸üÎªbin/main£¬ÈçºÎ½â¾ö£¿

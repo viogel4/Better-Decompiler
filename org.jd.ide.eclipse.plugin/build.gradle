@@ -1,4 +1,24 @@
 apply plugin: 'java'
+//使用此插件可以创建eclipse格式的项目结构
+apply plugin: 'eclipse'
+
+
+//自定义源码目录，但对应的输出目录默认为bin/main，如何更改
+sourceSets {
+	main {
+		java {
+			srcDir 'src'
+		}
+	}
+}
+
+
+//设置编译后输出的默认位置
+eclipse {
+    classpath{
+        defaultOutputDir = file('bin')
+    }
+}
 
 repositories {
 	jcenter()
@@ -61,7 +81,7 @@ jar {
 		include 'plugin.xml'
 	}
 	into('lib') {
-		//runtime属性已废弃，使用runtimeClasspath替代，但二者含义并不一致
+		//runtime灞炴�у凡搴熷純锛屼娇鐢╮untimeClasspath鏇夸唬锛屼絾浜岃�呭惈涔夊苟涓嶄竴鑷�
 		from project.configurations.runtimeClasspath
 	}
 }
