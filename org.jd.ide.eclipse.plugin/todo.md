@@ -1,23 +1,18 @@
-Bundle-ClassPath: /lib/jd-core-1.1.3.jar ºóÃæÒª²»Òª¼ÓÒ»¸öµãÄØ£¿
+Bundle-ClassPath: /lib/jd-core-1.1.3.jar åé¢è¦ä¸è¦åŠ ä¸€ä¸ª "."
 
 
+è‡ªåŠ¨ç”Ÿæˆçš„classpath ç¼–è¯‘è·¯å¾„ä¸å¯¹
 
-//×Ô¶¨ÒåÔ´ÂëÄ¿Â¼£¬µ«¶ÔÓ¦µÄÊä³öÄ¿Â¼Ä¬ÈÏÎªbin/main£¬ÈçºÎ¸ü¸Ä
-sourceSets {
-	main {
-		java {
-			srcDir 'src'
-		}
-	}
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="bin/main" path="src">
+		<attributes>
+			<attribute name="gradle_scope" value="main"/>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
+	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
+	<classpathentry kind="output" path="bin-default"/>
+</classpath>
 
-
-//ÉèÖÃ±àÒëºóÊä³öµÄÄ¬ÈÏÎ»ÖÃ
-eclipse {
-    classpath{
-        defaultOutputDir = file('bin')
-    }
-}
-
-
-ÉÏÃæµÄÅäÖÃ»áµ¼ÖÂ.classpathÖĞµÄÄ¿±êÄ¿Â¼±ä¸üÎªbin/main£¬ÈçºÎ½â¾ö£¿

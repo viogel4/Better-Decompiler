@@ -31,7 +31,7 @@ distributions {
     	}
 	}
 	
-	//设置不发布tar包
+	//设置在gradlew build进行产品发布时不发布tar包
 	distTar.enabled = false
 
 	main {

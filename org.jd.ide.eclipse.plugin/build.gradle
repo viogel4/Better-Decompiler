@@ -2,20 +2,19 @@ apply plugin: 'java'
 //使用此插件可以创建eclipse格式的项目结构
 apply plugin: 'eclipse'
 
-
-//自定义源码目录，但对应的输出目录默认为bin/main，如何更改
 sourceSets {
-	main {
-		java {
-			srcDir 'src'
-		}
-	}
+    //main是默认，可以不写
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
 }
 
 
-//设置编译后输出的默认位置
+//设置eclipse项目编译后输出的默认位置
 eclipse {
-    classpath{
+    classpath {
         defaultOutputDir = file('bin')
     }
 }
