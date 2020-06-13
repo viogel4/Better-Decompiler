@@ -4,27 +4,11 @@
 
 
 
-清理项目：
-
-```shell
-gradlew clean
-```
-
 编译并打包：
 
 ```shell
 gradlew build
 ```
-
-构建时，输入异常堆栈：
-
-```shell
-gradlew build --stacktrace
-```
-
-
-
-
 
 2.0.1：
 

@@ -22,7 +22,7 @@ import org.osgi.framework.BundleContext;
  * @project Java Decompiler Eclipse Plugin
  * @version 0.1.4
  */
-@SuppressWarnings({"restriction", "deprecation"})
+@SuppressWarnings({"deprecation"})
 public class JavaDecompilerPlugin extends AbstractUIPlugin {
     // The plug-in IDs
     public static final String PLUGIN_ID = "jd.ide.eclipse";

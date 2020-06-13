@@ -1,23 +1,20 @@
 apply plugin: 'java'
-//使用此插件可以创建eclipse格式的项目结构
 apply plugin: 'eclipse'
 
+//outputDir是有效的，在命令行下使用gradlew build进行构建时，会使用此配置的目录bin
+//但在eclipse中，使用Eclipse编译时，不会使用此配置，详见.classpath文件
 sourceSets {
-    //main是默认，可以不写
     main {
         java {
             srcDir 'src'
+            outputDir = file('bin')
         }
     }
 }
 
+//此配置可能会不生效，在eclipse的Configure Build Path中，将"Allow output folders for source folders"取消勾选
+eclipse.classpath.defaultOutputDir = file('bin')
 
-//设置eclipse项目编译后输出的默认位置
-eclipse {
-    classpath {
-        defaultOutputDir = file('bin')
-    }
-}
 
 repositories {
 	jcenter()
@@ -80,7 +77,6 @@ jar {
 		include 'plugin.xml'
 	}
 	into('lib') {
-		//runtime灞炴�у凡搴熷純锛屼娇鐢╮untimeClasspath鏇夸唬锛屼絾浜岃�呭惈涔夊苟涓嶄竴鑷�
 		from project.configurations.runtimeClasspath
 	}
 }
