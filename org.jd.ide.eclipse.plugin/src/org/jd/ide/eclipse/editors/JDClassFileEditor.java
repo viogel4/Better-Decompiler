@@ -36,132 +36,132 @@ import org.jd.ide.eclipse.JavaDecompilerPlugin;
  */
 @SuppressWarnings("restriction")
 public class JDClassFileEditor extends ClassFileEditor implements IPropertyChangeListener {
-	public JDClassFileEditor() {
-		JavaDecompilerPlugin.getDefault().getPreferenceStore().addPropertyChangeListener(this);
-	}
+    public JDClassFileEditor() {
+        JavaDecompilerPlugin.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+    }
 
-	@Override
-	protected void doSetInput(IEditorInput input) throws CoreException {
-		if (input instanceof IFileEditorInput) {
-			IFile file = ((IFileEditorInput) input).getFile();
+    @Override
+    protected void doSetInput(IEditorInput input) throws CoreException {
+        if (input instanceof IFileEditorInput) {
+            IFile file = ((IFileEditorInput)input).getFile();
 
-			if (file instanceof IClassFile) {
-				IClassFile classFile = (IClassFile) file;
-				cleanupBuffer(classFile);
-				setupSourceMapper(classFile);
-			}
-		} else if (input instanceof IClassFileEditorInput) {
-			IClassFileEditorInput classFileEditorInput = (IClassFileEditorInput) input;
-			IClassFile classFile = classFileEditorInput.getClassFile();
-			cleanupBuffer(classFile);
-			setupSourceMapper(classFile);
-		}
+            if (file instanceof IClassFile) {
+                IClassFile classFile = (IClassFile)file;
+                cleanupBuffer(classFile);
+                setupSourceMapper(classFile);
+            }
+        } else if (input instanceof IClassFileEditorInput) {
+            IClassFileEditorInput classFileEditorInput = (IClassFileEditorInput)input;
+            IClassFile classFile = classFileEditorInput.getClassFile();
+            cleanupBuffer(classFile);
+            setupSourceMapper(classFile);
+        }
 
-		super.doSetInput(input);
-	}
+        super.doSetInput(input);
+    }
 
-	protected static void cleanupBuffer(IClassFile file) {
-		IBuffer buffer = BufferManager.getDefaultBufferManager().getBuffer(file);
+    protected static void cleanupBuffer(IClassFile file) {
+        IBuffer buffer = BufferManager.getDefaultBufferManager().getBuffer(file);
 
-		if (buffer != null) {
-			try {
-				// Remove the buffer
-				Method method = BufferManager.class.getDeclaredMethod("removeBuffer", new Class[] { IBuffer.class });
-				method.setAccessible(true);
-				method.invoke(BufferManager.getDefaultBufferManager(), new Object[] { buffer });
-			} catch (Exception e) {
-				JavaDecompilerPlugin.getDefault().getLog()
-						.log(new Status(Status.ERROR, JavaDecompilerPlugin.PLUGIN_ID, 0, e.getMessage(), e));
-			}
-		}
-	}
+        if (buffer != null) {
+            try {
+                // Remove the buffer
+                Method method = BufferManager.class.getDeclaredMethod("removeBuffer", new Class[] {IBuffer.class});
+                method.setAccessible(true);
+                method.invoke(BufferManager.getDefaultBufferManager(), new Object[] {buffer});
+            } catch (Exception e) {
+                JavaDecompilerPlugin.getDefault().getLog()
+                    .log(new Status(Status.ERROR, JavaDecompilerPlugin.PLUGIN_ID, 0, e.getMessage(), e));
+            }
+        }
+    }
 
-	@SuppressWarnings("rawtypes")
-	protected void setupSourceMapper(IClassFile classFile) {
-		try {
-			// Search package fragment root and classPath
-			IJavaElement packageFragment = classFile.getParent();
-			IJavaElement packageFragmentRoot = packageFragment.getParent();
+    @SuppressWarnings("rawtypes")
+    protected void setupSourceMapper(IClassFile classFile) {
+        try {
+            // Search package fragment root and classPath
+            IJavaElement packageFragment = classFile.getParent();
+            IJavaElement packageFragmentRoot = packageFragment.getParent();
 
-			if (packageFragmentRoot instanceof PackageFragmentRoot) {
-				// Setup a new source mapper.
-				PackageFragmentRoot root = (PackageFragmentRoot) packageFragmentRoot;
+            if (packageFragmentRoot instanceof PackageFragmentRoot) {
+                // Setup a new source mapper.
+                PackageFragmentRoot root = (PackageFragmentRoot)packageFragmentRoot;
 
-				// Location of the archive file containing classes.
-				IPath basePath = root.getPath();
-				File baseFile = basePath.makeAbsolute().toFile();
+                // Location of the archive file containing classes.
+                IPath basePath = root.getPath();
+                File baseFile = basePath.makeAbsolute().toFile();
 
-				if (!baseFile.exists()) {
-					IResource resource = root.getCorrespondingResource();
-					basePath = resource.getLocation();
-					baseFile = basePath.makeAbsolute().toFile();
-				}
+                if (!baseFile.exists()) {
+                    IResource resource = root.getCorrespondingResource();
+                    basePath = resource.getLocation();
+                    baseFile = basePath.makeAbsolute().toFile();
+                }
 
-				// Class path
-				String classPath = classFile.getElementName();
-				String packageName = packageFragment.getElementName();
-				if ((packageName != null) && (packageName.length() > 0)) {
-					classPath = packageName.replace('.', '/') + '/' + classPath;
-				}
+                // Class path
+                String classPath = classFile.getElementName();
+                String packageName = packageFragment.getElementName();
+                if ((packageName != null) && (packageName.length() > 0)) {
+                    classPath = packageName.replace('.', '/') + '/' + classPath;
+                }
 
-				// Location of the archive file containing source.
-				IPath sourcePath = root.getSourceAttachmentPath();
-				if (sourcePath == null) {
-					sourcePath = basePath;
-				}
+                // Location of the archive file containing source.
+                IPath sourcePath = root.getSourceAttachmentPath();
+                if (sourcePath == null) {
+                    sourcePath = basePath;
+                }
 
-				// Location of the package fragment root within the zip
-				// (empty specifies the default root).
-				IPath sourceAttachmentRootPath = root.getSourceAttachmentRootPath();
-				String sourceRootPath;
+                // Location of the package fragment root within the zip
+                // (empty specifies the default root).
+                IPath sourceAttachmentRootPath = root.getSourceAttachmentRootPath();
+                String sourceRootPath;
 
-				if (sourceAttachmentRootPath == null) {
-					sourceRootPath = null;
-				} else {
-					sourceRootPath = sourceAttachmentRootPath.toString();
-					if ((sourceRootPath != null) && (sourceRootPath.length() == 0))
-						sourceRootPath = null;
-				}
+                if (sourceAttachmentRootPath == null) {
+                    sourceRootPath = null;
+                } else {
+                    sourceRootPath = sourceAttachmentRootPath.toString();
+                    if ((sourceRootPath != null) && (sourceRootPath.length() == 0))
+                        sourceRootPath = null;
+                }
 
-				// Options
-				Map options = root.getJavaProject().getOptions(true);
+                // Options
+                Map options = root.getJavaProject().getOptions(true);
 
-				root.setSourceMapper(new JDSourceMapper(baseFile, sourcePath, sourceRootPath, options));
-			}
-		} catch (CoreException e) {
-			JavaDecompilerPlugin.getDefault().getLog()
-					.log(new Status(Status.ERROR, JavaDecompilerPlugin.PLUGIN_ID, 0, e.getMessage(), e));
-		}
-	}
+                root.setSourceMapper(new JDSourceMapper(baseFile, sourcePath, sourceRootPath, options));
+            }
+        } catch (CoreException e) {
+            JavaDecompilerPlugin.getDefault().getLog()
+                .log(new Status(Status.ERROR, JavaDecompilerPlugin.PLUGIN_ID, 0, e.getMessage(), e));
+        }
+    }
 
-	@Override
-	public boolean isEditable() {
-		return false;
-	}
+    @Override
+    public boolean isEditable() {
+        return false;
+    }
 
-	@Override
-	public boolean isDirty() {
-		return false;
-	}
+    @Override
+    public boolean isDirty() {
+        return false;
+    }
 
-	@Override
-	public boolean isEditorInputReadOnly() {
-		return false;
-	}
+    @Override
+    public boolean isEditorInputReadOnly() {
+        return false;
+    }
 
-	@Override
-	public void dispose() {
-		JavaDecompilerPlugin.getDefault().getPreferenceStore().removePropertyChangeListener(this);
-	}
+    @Override
+    public void dispose() {
+        JavaDecompilerPlugin.getDefault().getPreferenceStore().removePropertyChangeListener(this);
+    }
 
-	/**
-	 * Refresh decompiled source code.
-	 * 
-	 * @see org.eclipse.jface.util.IPropertyChangeListener#propertyChange(org.eclipse.jface.util.PropertyChangeEvent)
-	 */
-	public void propertyChange(PropertyChangeEvent event) {
-		if (getSourceViewer() != null) {
-			setInput(getEditorInput());
-		}
-	}
+    /**
+     * Refresh decompiled source code.
+     * 
+     * @see org.eclipse.jface.util.IPropertyChangeListener#propertyChange(org.eclipse.jface.util.PropertyChangeEvent)
+     */
+    public void propertyChange(PropertyChangeEvent event) {
+        if (getSourceViewer() != null) {
+            setInput(getEditorInput());
+        }
+    }
 }

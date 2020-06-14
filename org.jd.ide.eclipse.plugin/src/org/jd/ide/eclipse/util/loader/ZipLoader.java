@@ -1,8 +1,6 @@
 /*
- * Copyright (c) 2008, 2019 Emmanuel Dupuy.
- * This project is distributed under the GPLv3 license.
- * This is a Copyleft license that gives the user the right to use,
- * copy and modify the code freely for non-commercial purposes.
+ * Copyright (c) 2008, 2019 Emmanuel Dupuy. This project is distributed under the GPLv3 license. This is a Copyleft
+ * license that gives the user the right to use, copy and modify the code freely for non-commercial purposes.
  */
 
 package org.jd.ide.eclipse.util.loader;
@@ -21,7 +19,7 @@ import java.util.zip.ZipInputStream;
 public class ZipLoader implements Loader {
     protected HashMap<String, byte[]> map = new HashMap<>();
 
-    public  ZipLoader(File zip) throws LoaderException {
+    public ZipLoader(File zip) throws LoaderException {
         byte[] buffer = new byte[1024 * 2];
 
         try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zip))) {

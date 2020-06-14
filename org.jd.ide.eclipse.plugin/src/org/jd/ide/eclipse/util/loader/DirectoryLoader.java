@@ -1,8 +1,6 @@
 /*
- * Copyright (c) 2008, 2019 Emmanuel Dupuy.
- * This project is distributed under the GPLv3 license.
- * This is a Copyleft license that gives the user the right to use,
- * copy and modify the code freely for non-commercial purposes.
+ * Copyright (c) 2008, 2019 Emmanuel Dupuy. This project is distributed under the GPLv3 license. This is a Copyleft
+ * license that gives the user the right to use, copy and modify the code freely for non-commercial purposes.
  */
 
 package org.jd.ide.eclipse.util.loader;
@@ -16,17 +14,17 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class DirectoryLoader implements Loader {
-	protected File root;
-	
-    public  DirectoryLoader(File root) throws LoaderException {
-    	this.root = root;
+    protected File root;
+
+    public DirectoryLoader(File root) throws LoaderException {
+        this.root = root;
     }
 
     @Override
     public byte[] load(String internalName) throws LoaderException {
-    	File file = new File(root, internalName + ".class");
+        File file = new File(root, internalName + ".class");
 
-    	try (FileInputStream in=new FileInputStream(file); ByteArrayOutputStream out=new ByteArrayOutputStream()) {
+        try (FileInputStream in = new FileInputStream(file); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             byte[] buffer = new byte[1024];
             int read = in.read(buffer);
 
@@ -38,7 +36,7 @@ public class DirectoryLoader implements Loader {
             return out.toByteArray();
         } catch (IOException e) {
             throw new LoaderException(e);
-        }    	
+        }
     }
 
     @Override

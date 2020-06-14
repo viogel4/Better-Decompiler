@@ -22,15 +22,14 @@ import org.osgi.framework.BundleContext;
  * @project Java Decompiler Eclipse Plugin
  * @version 0.1.4
  */
-@SuppressWarnings({"deprecation"})
 public class JavaDecompilerPlugin extends AbstractUIPlugin {
     // The plug-in IDs
     public static final String PLUGIN_ID = "jd.ide.eclipse";
     private static final String EDITOR_ID = PLUGIN_ID + ".editors.JDClassFileEditor";
 
     // Versions
-    public static final String VERSION_JD_ECLIPSE = "2.0.0";
-    public static final String VERSION_JD_CORE = "1.0.7";
+    // public static final String VERSION_JD_ECLIPSE = "2.0.0";
+    // public static final String VERSION_JD_CORE = "1.0.7";
 
     // Preferences
     public static final String PREF_ESCAPE_UNICODE_CHARACTERS = PLUGIN_ID + ".prefs.EscapeUnicodeCharacters";
