@@ -4,31 +4,31 @@
 <plugin>
    <extension
          point="org.eclipse.ui.startup">
-      <startup class="org.jd.ide.eclipse.startup.JDStartupClass"/>
+      <startup class="org.snow1k.bd.eclipse.startup.BetterDecompilerStartup"/>
    </extension>
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
             category="org.eclipse.jdt.ui.preferences.JavaBasePreferencePage"
-            class="org.jd.ide.eclipse.preferences.PreferencePage"
-            id="org.jd.ide.eclipse.preferences.PreferencePage"
-            name="Decompiler">
+            class="org.snow1k.bd.eclipse.preferences.PreferencePage"
+            id="org.snow1k.bd.eclipse.preferences.PreferencePage"
+            name="Better Decompiler">
       </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
-      <initializer class="org.jd.ide.eclipse.preferences.PreferenceInitializer"/>
+      <initializer class="org.snow1k.bd.eclipse.preferences.PreferenceInitializer"/>
    </extension>
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            id="org.jd.ide.eclipse.editors.JDClassFileEditor"
-            class="org.jd.ide.eclipse.editors.JDClassFileEditor"
+            id="org.snow1k.bd.eclipse.editors.JDClassFileEditor"
+            class="org.snow1k.bd.eclipse.editors.JDClassFileEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             extensions="class"
             default="true"
             icon="icons/jd_16.png"
-            name="JD Class File Viewer">
+            name="Better Decompiler Class File Viewer">
       </editor>
    </extension>   
 </plugin>

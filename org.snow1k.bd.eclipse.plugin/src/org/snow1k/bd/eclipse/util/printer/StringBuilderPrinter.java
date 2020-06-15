@@ -3,7 +3,7 @@
  * license that gives the user the right to use, copy and modify the code freely for non-commercial purposes.
  */
 
-package org.jd.ide.eclipse.util.printer;
+package org.snow1k.bd.eclipse.util.printer;
 
 import org.jd.core.v1.api.printer.Printer;
 

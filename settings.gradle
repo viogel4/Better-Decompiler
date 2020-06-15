@@ -1,1 +1,1 @@
-include 'org.jd.ide.eclipse.plugin', 'org.jd.ide.eclipse.feature'
+include 'org.snow1k.bd.eclipse.plugin', 'org.snow1k.bd.eclipse.feature'

@@ -3,7 +3,7 @@
  * license that gives the user the right to use, copy and modify the code freely for non-commercial purposes.
  */
 
-package org.jd.ide.eclipse.editors;
+package org.snow1k.bd.eclipse.editors;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -25,7 +25,7 @@ import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
-import org.jd.ide.eclipse.JavaDecompilerPlugin;
+import org.snow1k.bd.eclipse.BetterDecompilerPlugin;
 
 /**
  * JDClassFileEditor
@@ -34,10 +34,10 @@ import org.jd.ide.eclipse.JavaDecompilerPlugin;
  * @version 0.1.4
  * @see org.eclipse.jdt.internal.ui.javaeditor.ClassFileEditor
  */
-@SuppressWarnings("restriction")
 public class JDClassFileEditor extends ClassFileEditor implements IPropertyChangeListener {
+
     public JDClassFileEditor() {
-        JavaDecompilerPlugin.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+        BetterDecompilerPlugin.getDefault().getPreferenceStore().addPropertyChangeListener(this);
     }
 
     @Override
@@ -70,13 +70,12 @@ public class JDClassFileEditor extends ClassFileEditor implements IPropertyChang
                 method.setAccessible(true);
                 method.invoke(BufferManager.getDefaultBufferManager(), new Object[] {buffer});
             } catch (Exception e) {
-                JavaDecompilerPlugin.getDefault().getLog()
-                    .log(new Status(Status.ERROR, JavaDecompilerPlugin.PLUGIN_ID, 0, e.getMessage(), e));
+                BetterDecompilerPlugin.getDefault().getLog()
+                    .log(new Status(Status.ERROR, BetterDecompilerPlugin.PLUGIN_ID, 0, e.getMessage(), e));
             }
         }
     }
 
-    @SuppressWarnings("rawtypes")
     protected void setupSourceMapper(IClassFile classFile) {
         try {
             // Search package fragment root and classPath
@@ -129,8 +128,8 @@ public class JDClassFileEditor extends ClassFileEditor implements IPropertyChang
                 root.setSourceMapper(new JDSourceMapper(baseFile, sourcePath, sourceRootPath, options));
             }
         } catch (CoreException e) {
-            JavaDecompilerPlugin.getDefault().getLog()
-                .log(new Status(Status.ERROR, JavaDecompilerPlugin.PLUGIN_ID, 0, e.getMessage(), e));
+            BetterDecompilerPlugin.getDefault().getLog()
+                .log(new Status(Status.ERROR, BetterDecompilerPlugin.PLUGIN_ID, 0, e.getMessage(), e));
         }
     }
 
@@ -151,7 +150,7 @@ public class JDClassFileEditor extends ClassFileEditor implements IPropertyChang
 
     @Override
     public void dispose() {
-        JavaDecompilerPlugin.getDefault().getPreferenceStore().removePropertyChangeListener(this);
+        BetterDecompilerPlugin.getDefault().getPreferenceStore().removePropertyChangeListener(this);
     }
 
     /**

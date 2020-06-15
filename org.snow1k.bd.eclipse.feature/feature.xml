@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xml>
 <feature
-      id="org.jd.ide.eclipse.feature"
-      label="JD-Eclipse Plug-in"
+      id="org.snow1k.bd.eclipse.feature"
+      label="Better Decompiler Eclipse Plug-in"
       version="2.0.0"
-      provider-name="Java Decompiler"
-      plugin="org.jd.ide.eclipse.plugin">
+      provider-name="Better Decompiler"
+      plugin="org.snow1k.bd.eclipse.plugin">
 
-   <description url="http://www.example.com/feature">
-      JD-Eclipse is a plug-in for the Eclipse platform. It allows you to display all the Java sources during your debugging process, even if you do not have them all.
+   <description url="http://www.nourlnow.com/feature">
+      Better-Decompiler is a plug-in for the Eclipse platform. It allows you to display all the Java sources during your debugging process, even if you do not have them all.
    </description>
 
    <copyright>
-      Copyright (c) 2008, 2019  Emmanuel Dupuy
+      Copyright (c) 2008, 2020  snow1k
    </copyright>
 
    <license url="http://www.gnu.org/licenses/gpl-3.0.html">
@@ -82,7 +82,7 @@ Public License instead of this License.  But first, please read
    </license>
 
    <plugin
-         id="org.jd.ide.eclipse.plugin"
+         id="org.snow1k.bd.eclipse.plugin"
          download-size="0"
          install-size="0"
          version="2.0.0"

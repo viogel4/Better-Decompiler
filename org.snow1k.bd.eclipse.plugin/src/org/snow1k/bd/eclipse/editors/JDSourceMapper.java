@@ -3,7 +3,7 @@
  * license that gives the user the right to use, copy and modify the code freely for non-commercial purposes.
  */
 
-package org.jd.ide.eclipse.editors;
+package org.snow1k.bd.eclipse.editors;
 
 import java.io.File;
 import java.util.HashMap;
@@ -16,15 +16,14 @@ import org.eclipse.jdt.internal.core.SourceMapper;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.jd.core.v1.ClassFileToJavaSourceDecompiler;
 import org.jd.core.v1.api.loader.Loader;
-import org.jd.ide.eclipse.JavaDecompilerPlugin;
-import org.jd.ide.eclipse.util.loader.DirectoryLoader;
-import org.jd.ide.eclipse.util.loader.ZipLoader;
-import org.jd.ide.eclipse.util.printer.LineNumberStringBuilderPrinter;
+import org.snow1k.bd.eclipse.BetterDecompilerPlugin;
+import org.snow1k.bd.eclipse.util.loader.DirectoryLoader;
+import org.snow1k.bd.eclipse.util.loader.ZipLoader;
+import org.snow1k.bd.eclipse.util.printer.LineNumberStringBuilderPrinter;
 
 /**
- * JDSourceMapper
+ * SourceMapper
  * 
- * @project Java Decompiler Eclipse Plugin
  * @version 0.1.4
  * @see org.eclipse.jdt.internal.core.SourceMapper
  */
@@ -39,14 +38,12 @@ public class JDSourceMapper extends SourceMapper {
 
     private LineNumberStringBuilderPrinter printer = new LineNumberStringBuilderPrinter();
 
-    @SuppressWarnings("rawtypes")
     public JDSourceMapper(File basePath, IPath sourcePath, String sourceRootPath, Map options) {
         super(sourcePath, sourceRootPath, options);
         this.basePath = basePath;
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
     public char[] findSource(String javaSourcePath) {
         char[] source = null;
 
@@ -69,8 +66,8 @@ public class JDSourceMapper extends SourceMapper {
             try {
                 source = decompile(this.basePath.getAbsolutePath(), internalTypeName);
             } catch (Exception e) {
-                JavaDecompilerPlugin.getDefault().getLog()
-                    .log(new Status(Status.ERROR, JavaDecompilerPlugin.PLUGIN_ID, 0, e.getMessage(), e));
+                BetterDecompilerPlugin.getDefault().getLog()
+                    .log(new Status(Status.ERROR, BetterDecompilerPlugin.PLUGIN_ID, 0, e.getMessage(), e));
             }
         }
 
@@ -85,13 +82,17 @@ public class JDSourceMapper extends SourceMapper {
      * @return Decompiled class text.
      */
     protected char[] decompile(String basePath, String internalTypeName) throws Exception {
-        // Load preferences
-        IPreferenceStore store = JavaDecompilerPlugin.getDefault().getPreferenceStore();
+        // 加载插件配置参数
+        IPreferenceStore store = BetterDecompilerPlugin.getDefault().getPreferenceStore();
 
-        boolean realignmentLineNumber = store.getBoolean(JavaDecompilerPlugin.PREF_REALIGN_LINE_NUMBERS);
-        boolean unicodeEscape = store.getBoolean(JavaDecompilerPlugin.PREF_ESCAPE_UNICODE_CHARACTERS);
-        boolean showLineNumbers = store.getBoolean(JavaDecompilerPlugin.PREF_SHOW_LINE_NUMBERS);
-        boolean showMetaData = store.getBoolean(JavaDecompilerPlugin.PREF_SHOW_METADATA);
+        // 行号重振
+        boolean realignmentLineNumber = store.getBoolean(BetterDecompilerPlugin.PREF_REALIGN_LINE_NUMBERS);
+        // unicode编码
+        boolean unicodeEscape = store.getBoolean(BetterDecompilerPlugin.PREF_ESCAPE_UNICODE_CHARACTERS);
+        // 显示行号
+        boolean showLineNumbers = store.getBoolean(BetterDecompilerPlugin.PREF_SHOW_LINE_NUMBERS);
+        // 显示元数据
+        boolean showMetaData = store.getBoolean(BetterDecompilerPlugin.PREF_SHOW_METADATA);
 
         Map<String, Object> configuration = new HashMap<>();
         configuration.put("realignLineNumbers", realignmentLineNumber);
@@ -104,8 +105,8 @@ public class JDSourceMapper extends SourceMapper {
             if (basePath.toLowerCase().endsWith(".jar") || basePath.toLowerCase().endsWith(".zip")) {
                 loader = new ZipLoader(base);
             } else {
-                JavaDecompilerPlugin.getDefault().getLog().log(new Status(Status.ERROR, JavaDecompilerPlugin.PLUGIN_ID,
-                    "Unexpected container type file: " + basePath));
+                BetterDecompilerPlugin.getDefault().getLog().log(new Status(Status.ERROR,
+                    BetterDecompilerPlugin.PLUGIN_ID, "Unexpected container type file: " + basePath));
                 return null;
             }
         } else {
@@ -149,7 +150,7 @@ public class JDSourceMapper extends SourceMapper {
             }
             // Add JD-Core version
             stringBuffer.append("\n * JD-Core Version:       ");
-            stringBuffer.append(JavaDecompilerPlugin.VERSION_JD_CORE);
+            stringBuffer.append(BetterDecompilerPlugin.VERSION_JD_CORE);
             stringBuffer.append("\n */");
         }
 

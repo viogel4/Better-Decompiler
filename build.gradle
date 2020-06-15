@@ -38,15 +38,15 @@ distributions {
 		contents {
 			into('features') {
 				from { 
-					fileTree 'org.jd.ide.eclipse.feature/build/libs'
+					fileTree 'org.snow1k.bd.eclipse.feature/build/libs'
 				}
 			}
 			into('plugins') {
 				from { 
-					fileTree 'org.jd.ide.eclipse.plugin/build/libs'
+					fileTree 'org.snow1k.bd.eclipse.plugin/build/libs'
 				}
 			}
-			from 'org.jd.ide.eclipse.site/site.xml', 'LICENSE', 'NOTICE', 'README.md'
+			from 'org.snow1k.bd.eclipse.site/site.xml', 'LICENSE', 'NOTICE', 'README.md'
 		}
 	}
 }

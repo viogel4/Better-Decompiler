@@ -3,7 +3,7 @@
  * license that gives the user the right to use, copy and modify the code freely for non-commercial purposes.
  */
 
-package org.jd.ide.eclipse.util.loader;
+package org.snow1k.bd.eclipse.util.loader;
 
 import org.jd.core.v1.api.loader.Loader;
 import org.jd.core.v1.api.loader.LoaderException;

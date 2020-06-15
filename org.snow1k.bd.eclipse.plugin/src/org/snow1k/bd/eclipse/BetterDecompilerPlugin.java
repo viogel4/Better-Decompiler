@@ -1,10 +1,6 @@
-/*
- * Copyright (c) 2008, 2019 Emmanuel Dupuy. This project is distributed under the GPLv3 license. This is a Copyleft
- * license that gives the user the right to use, copy and modify the code freely for non-commercial purposes.
- */
+package org.snow1k.bd.eclipse;
 
-package org.jd.ide.eclipse;
-
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorDescriptor;
@@ -17,19 +13,20 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
- * The activator class controls the plug-in life cycle
+ * Better Decompiler Eclipse Plugin<br>
+ * The activator class controls the plug-in lifecycle<br>
+ * 插件主类，本类用于控制插件的生命周期
  * 
- * @project Java Decompiler Eclipse Plugin
+ * @author 千堆雪
  * @version 0.1.4
  */
-public class JavaDecompilerPlugin extends AbstractUIPlugin {
-    // The plug-in IDs
-    public static final String PLUGIN_ID = "jd.ide.eclipse";
-    private static final String EDITOR_ID = PLUGIN_ID + ".editors.JDClassFileEditor";
+public class BetterDecompilerPlugin extends AbstractUIPlugin {
+    // jd-core的版本号
+    public static final String VERSION_JD_CORE = "1.1.3";
 
-    // Versions
-    // public static final String VERSION_JD_ECLIPSE = "2.0.0";
-    // public static final String VERSION_JD_CORE = "1.0.7";
+    // The plug-in IDs
+    public static final String PLUGIN_ID = "org.snow1k.bd.eclipse.plugin";
+    private static final String EDITOR_ID = PLUGIN_ID + ".editors.JDClassFileEditor";
 
     // Preferences
     public static final String PREF_ESCAPE_UNICODE_CHARACTERS = PLUGIN_ID + ".prefs.EscapeUnicodeCharacters";
@@ -41,12 +38,11 @@ public class JavaDecompilerPlugin extends AbstractUIPlugin {
     public static final String URL_JDECLIPSE = "https://github.com/java-decompiler/jd-eclipse";
 
     // The shared instance
-    private static JavaDecompilerPlugin plugin;
+    private static BetterDecompilerPlugin plugin;
 
-    /**
-     * The constructor
-     */
-    public JavaDecompilerPlugin() {}
+    public BetterDecompilerPlugin() {
+        // do nothing...
+    }
 
     /**
      * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
@@ -65,17 +61,18 @@ public class JavaDecompilerPlugin extends AbstractUIPlugin {
      */
     @Override
     public void stop(BundleContext context) throws Exception {
-        plugin.savePluginPreferences();
+        // 保存插件配置
+        InstanceScope.INSTANCE.getNode(PLUGIN_ID).flush();
         plugin = null;
         super.stop(context);
     }
 
     /**
-     * Returns the shared instance
+     * 静态方法，返回唯一插件实例
      * 
      * @return the shared instance
      */
-    public static JavaDecompilerPlugin getDefault() {
+    public static BetterDecompilerPlugin getDefault() {
         return plugin;
     }
 

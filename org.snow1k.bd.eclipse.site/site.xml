@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<site>
+   <feature url="features/org.snow1k.bd.eclipse.feature_2.0.0.jar" id="org.snow1k.bd.eclipse.feature" version="2.0.0">
+      <category name="Better-Decompiler"/>
+   </feature>
+   <category-def name="Better-Decompiler" label="Better-Decompiler Eclipse Plug-in"/>
+</site>
