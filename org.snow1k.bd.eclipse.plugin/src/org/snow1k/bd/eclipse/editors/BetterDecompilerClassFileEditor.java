@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2008, 2019 Emmanuel Dupuy. This project is distributed under the GPLv3 license. This is a Copyleft
- * license that gives the user the right to use, copy and modify the code freely for non-commercial purposes.
- */
-
 package org.snow1k.bd.eclipse.editors;
 
 import java.io.File;
@@ -28,15 +23,16 @@ import org.eclipse.ui.IFileEditorInput;
 import org.snow1k.bd.eclipse.BetterDecompilerPlugin;
 
 /**
- * JDClassFileEditor
+ * 继承自字符码编辑器。
  * 
- * @project Java Decompiler Eclipse Plugin
- * @version 0.1.4
+ * @author 千堆雪
+ * @version 1.0.0
  * @see org.eclipse.jdt.internal.ui.javaeditor.ClassFileEditor
  */
-public class JDClassFileEditor extends ClassFileEditor implements IPropertyChangeListener {
+public class BetterDecompilerClassFileEditor extends ClassFileEditor implements IPropertyChangeListener {
 
-    public JDClassFileEditor() {
+    public BetterDecompilerClassFileEditor() {
+        // 注册事件监听
         BetterDecompilerPlugin.getDefault().getPreferenceStore().addPropertyChangeListener(this);
     }
 
@@ -123,9 +119,9 @@ public class JDClassFileEditor extends ClassFileEditor implements IPropertyChang
                 }
 
                 // Options
-                Map options = root.getJavaProject().getOptions(true);
+                Map<String, String> options = root.getJavaProject().getOptions(true);
 
-                root.setSourceMapper(new JDSourceMapper(baseFile, sourcePath, sourceRootPath, options));
+                root.setSourceMapper(new BetterDecompilerSourceMapper(baseFile, sourcePath, sourceRootPath, options));
             }
         } catch (CoreException e) {
             BetterDecompilerPlugin.getDefault().getLog()
@@ -148,19 +144,23 @@ public class JDClassFileEditor extends ClassFileEditor implements IPropertyChang
         return false;
     }
 
+    /**
+     * 关闭字节码编辑器时，移除事件监听器
+     */
     @Override
     public void dispose() {
         BetterDecompilerPlugin.getDefault().getPreferenceStore().removePropertyChangeListener(this);
     }
 
     /**
-     * Refresh decompiled source code.
      * 
-     * @see org.eclipse.jface.util.IPropertyChangeListener#propertyChange(org.eclipse.jface.util.PropertyChangeEvent)
+     * 刷新反编译代码， 属性改变时触发此事件
+     * 
      */
+    @Override
     public void propertyChange(PropertyChangeEvent event) {
-        if (getSourceViewer() != null) {
-            setInput(getEditorInput());
+        if (super.getSourceViewer() != null) {
+            super.setInput(super.getEditorInput());
         }
     }
 }

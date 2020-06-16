@@ -22,8 +22,8 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            id="org.snow1k.bd.eclipse.editors.JDClassFileEditor"
-            class="org.snow1k.bd.eclipse.editors.JDClassFileEditor"
+            id="org.snow1k.bd.eclipse.editors.BetterDecompilerClassFileEditor"
+            class="org.snow1k.bd.eclipse.editors.BetterDecompilerClassFileEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             extensions="class"
             default="true"

@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2008, 2019 Emmanuel Dupuy. This project is distributed under the GPLv3 license. This is a Copyleft
- * license that gives the user the right to use, copy and modify the code freely for non-commercial purposes.
- */
-
 package org.snow1k.bd.eclipse.editors;
 
 import java.io.File;
@@ -24,25 +19,31 @@ import org.snow1k.bd.eclipse.util.printer.LineNumberStringBuilderPrinter;
 /**
  * SourceMapper
  * 
- * @version 0.1.4
- * @see org.eclipse.jdt.internal.core.SourceMapper
+ * @author 千堆雪
+ * @version 1.0.0
  */
-public class JDSourceMapper extends SourceMapper {
+public class BetterDecompilerSourceMapper extends SourceMapper {
+    // 字节码文件名后缀
     private final static String JAVA_CLASS_SUFFIX = ".class";
+    // 源码文件名后缀
     private final static String JAVA_SOURCE_SUFFIX = ".java";
     private final static int JAVA_SOURCE_SUFFIX_LENGTH = 5;
 
+    // jd-core反编译器，来源于jd-core反编译引擎
     private final static ClassFileToJavaSourceDecompiler DECOMPILER = new ClassFileToJavaSourceDecompiler();
+    private LineNumberStringBuilderPrinter printer = new LineNumberStringBuilderPrinter();
 
     private File basePath;
 
-    private LineNumberStringBuilderPrinter printer = new LineNumberStringBuilderPrinter();
-
-    public JDSourceMapper(File basePath, IPath sourcePath, String sourceRootPath, Map options) {
+    public BetterDecompilerSourceMapper(File basePath, IPath sourcePath, String sourceRootPath,
+        Map<String, String> options) {
         super(sourcePath, sourceRootPath, options);
         this.basePath = basePath;
     }
 
+    /**
+     * 获取源码，覆盖父类方法
+     */
     @Override
     public char[] findSource(String javaSourcePath) {
         char[] source = null;
@@ -62,8 +63,8 @@ public class JDSourceMapper extends SourceMapper {
         if ((source == null) && javaSourcePath.toLowerCase().endsWith(JAVA_SOURCE_SUFFIX)) {
             String internalTypeName = javaSourcePath.substring(0, javaSourcePath.length() - JAVA_SOURCE_SUFFIX_LENGTH);
 
-            // Decompile class file
             try {
+                // 对字节码文件进行反编译，此处也可更改为使用其它反编译引擎
                 source = decompile(this.basePath.getAbsolutePath(), internalTypeName);
             } catch (Exception e) {
                 BetterDecompilerPlugin.getDefault().getLog()
@@ -78,14 +79,14 @@ public class JDSourceMapper extends SourceMapper {
      * @param basePath
      *            Path to the root of the classpath, either a path to a directory or a path to a jar file.
      * @param internalClassName
-     *            internal name of the class.
-     * @return Decompiled class text.
+     *            internal name of the class，类名称
+     * @return Decompiled class text，返回反编译后的源码内容
      */
     protected char[] decompile(String basePath, String internalTypeName) throws Exception {
         // 加载插件配置参数
         IPreferenceStore store = BetterDecompilerPlugin.getDefault().getPreferenceStore();
 
-        // 行号重振
+        // 行号重排
         boolean realignmentLineNumber = store.getBoolean(BetterDecompilerPlugin.PREF_REALIGN_LINE_NUMBERS);
         // unicode编码
         boolean unicodeEscape = store.getBoolean(BetterDecompilerPlugin.PREF_ESCAPE_UNICODE_CHARACTERS);
@@ -113,7 +114,7 @@ public class JDSourceMapper extends SourceMapper {
             loader = new DirectoryLoader(base);
         }
 
-        // Initialize printer
+        // 对printer进行设置
         printer.setRealignmentLineNumber(realignmentLineNumber);
         printer.setUnicodeEscape(unicodeEscape);
         printer.setShowLineNumbers(showLineNumbers);
@@ -123,15 +124,15 @@ public class JDSourceMapper extends SourceMapper {
 
         StringBuilder stringBuffer = printer.getStringBuffer();
 
-        // Metadata
-        if (showMetaData) {
+        if (showMetaData) {// 如果显示元数据
             // Add location
             stringBuffer.append("\n\n/* Location:              ");
             String classPath = internalTypeName + JAVA_CLASS_SUFFIX;
             String location = base.isFile() ? base.getPath() + "!/" + classPath : new File(base, classPath).getPath();
             // Escape "\ u" sequence to prevent "Invalid unicode" errors
             stringBuffer.append(location.replaceAll("(^|[^\\\\])\\\\u", "\\\\\\\\u"));
-            // Add Java compiler version
+
+            // Add Java compiler version，添加java编译器版本
             int majorVersion = printer.getMajorVersion();
             if (majorVersion >= 45) {
                 stringBuffer.append("\n * Java compiler version: ");
@@ -148,7 +149,8 @@ public class JDSourceMapper extends SourceMapper {
                 stringBuffer.append(printer.getMinorVersion());
                 stringBuffer.append(')');
             }
-            // Add JD-Core version
+
+            // Add JD-Core version，添加jd-core版本
             stringBuffer.append("\n * JD-Core Version:       ");
             stringBuffer.append(BetterDecompilerPlugin.VERSION_JD_CORE);
             stringBuffer.append("\n */");

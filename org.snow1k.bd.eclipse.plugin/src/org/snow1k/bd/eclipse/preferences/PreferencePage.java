@@ -4,6 +4,7 @@ import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
@@ -32,16 +33,30 @@ public final class PreferencePage extends FieldEditorPreferencePage implements I
     public void createFieldEditors() {
         Composite fieldEditorParent = getFieldEditorParent();
 
-        // 作用仅仅是为了添加一个空行
+        // 此句代码仅仅是为了添加一个空行
         new Label(fieldEditorParent, SWT.NONE);
 
         addField(new BooleanFieldEditor(BetterDecompilerPlugin.PREF_ESCAPE_UNICODE_CHARACTERS,
             "Escape unicode characters", fieldEditorParent));
+
         addField(new BooleanFieldEditor(BetterDecompilerPlugin.PREF_REALIGN_LINE_NUMBERS, "Realign line numbers",
             fieldEditorParent));
+
         addField(new BooleanFieldEditor(BetterDecompilerPlugin.PREF_SHOW_LINE_NUMBERS, "Show original line numbers",
             fieldEditorParent));
+
         addField(new BooleanFieldEditor(BetterDecompilerPlugin.PREF_SHOW_METADATA, "Show metadata", fieldEditorParent));
+
+        Composite com = new Composite(fieldEditorParent, SWT.NONE);
+        com.setBackground(fieldEditorParent.getDisplay().getSystemColor(SWT.COLOR_RED));
+        System.out.println(fieldEditorParent.getBounds().toString());
+        ？？？？？？
+        // 给composite设置而已，以使labl居右
+        Label lbl = new Label(com, SWT.RIGHT);
+        lbl.setText("千堆雪");
+        lbl.setLocation(5, 5);
+        lbl.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_CYAN));
+
     }
 
     /**
