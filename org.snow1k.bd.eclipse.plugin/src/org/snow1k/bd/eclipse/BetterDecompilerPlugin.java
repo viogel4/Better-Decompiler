@@ -33,6 +33,7 @@ public class BetterDecompilerPlugin extends AbstractUIPlugin {
     public static final String PREF_REALIGN_LINE_NUMBERS = PLUGIN_ID + ".prefs.RealignLineNumbers";
     public static final String PREF_SHOW_LINE_NUMBERS = PLUGIN_ID + ".prefs.ShowLineNumbers";
     public static final String PREF_SHOW_METADATA = PLUGIN_ID + ".prefs.ShowMetadata";
+    public static final String PREF_DECOMPILE_ENGINE = PLUGIN_ID + ".prefs.Engine";
 
     // URLs
     public static final String URL_JDECLIPSE = "https://github.com/java-decompiler/jd-eclipse";

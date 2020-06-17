@@ -1,10 +1,12 @@
 package org.snow1k.bd.eclipse.preferences;
 
 import org.eclipse.jface.preference.BooleanFieldEditor;
+import org.eclipse.jface.preference.ComboFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
@@ -23,7 +25,7 @@ public final class PreferencePage extends FieldEditorPreferencePage implements I
 
     public PreferencePage() {
         super(SWT.NONE);
-        setDescription("Better Decompiler preference page");
+        // setDescription("Better Decompiler Preference");
     }
 
     /**
@@ -32,6 +34,13 @@ public final class PreferencePage extends FieldEditorPreferencePage implements I
      */
     public void createFieldEditors() {
         Composite fieldEditorParent = getFieldEditorParent();
+
+        // 此句代码仅仅是为了添加一个空行
+        // new Label(fieldEditorParent, SWT.NONE);
+
+        addField(new ComboFieldEditor(BetterDecompilerPlugin.PREF_DECOMPILE_ENGINE, "Engine",
+            new String[][] {{"JD-Core", "JD-Core"}, {"Procyon", "Procyon"}, {"FernFlower", "FernFlower"}},
+            fieldEditorParent));
 
         // 此句代码仅仅是为了添加一个空行
         new Label(fieldEditorParent, SWT.NONE);
@@ -47,15 +56,20 @@ public final class PreferencePage extends FieldEditorPreferencePage implements I
 
         addField(new BooleanFieldEditor(BetterDecompilerPlugin.PREF_SHOW_METADATA, "Show metadata", fieldEditorParent));
 
-        Composite com = new Composite(fieldEditorParent, SWT.NONE);
-        com.setBackground(fieldEditorParent.getDisplay().getSystemColor(SWT.COLOR_RED));
-        System.out.println(fieldEditorParent.getBounds().toString());
-        ？？？？？？
-        // 给composite设置而已，以使labl居右
-        Label lbl = new Label(com, SWT.RIGHT);
-        lbl.setText("千堆雪");
-        lbl.setLocation(5, 5);
-        lbl.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_CYAN));
+        // 此句代码仅仅是为了添加一个空行
+        new Label(fieldEditorParent, SWT.NONE);
+
+        Group group = new Group(fieldEditorParent, SWT.NONE);
+        group.setText("关于");
+        group.setLayout(new GridLayout());
+        Label about = new Label(group, SWT.NONE);
+        about.setText("重要：请勿将此插件用于非法用途。");
+
+        Composite comp = new Composite(group, SWT.NONE);
+        Label author = new Label(comp, SWT.RIGHT);
+        author.setText("——千堆雪，2020-06-17");
+        author.setBounds(0, 20, 350, 24);
+        // author.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_CYAN));
 
     }
 
