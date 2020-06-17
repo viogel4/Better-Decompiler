@@ -83,7 +83,7 @@ Public License instead of this License.  But first, please read
 
    <plugin
          id="org.snow1k.bd.eclipse.plugin"
-         download-size="0"
+         download-size="646"
          install-size="0"
          version="2.0.0"
          unpack="false"/>

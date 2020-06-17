@@ -80,3 +80,8 @@ jar {
 		from project.configurations.runtimeClasspath
 	}
 }
+
+//防止编译时出现：错误:编码 GBK 的不可映射字符的
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
