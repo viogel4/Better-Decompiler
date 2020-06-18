@@ -10,7 +10,8 @@ JD-Eclipse 的项目地址：https://github.com/java-decompiler/jd-eclipse
 
 本项目地址：
 
-- 
+- https://github.com/viogel4/Better-Decompiler
+- https://gitee.com/viogel4/better-decompile
 
 
 
@@ -39,7 +40,7 @@ Released under the [GNU GPL v3](LICENSE).
 
 
 
-2.0.1：
+2.0.0：
 
 1. 使用 jd-core-1.1.3版本。
 2. 测试使用环境 eclipse 2020-3。
