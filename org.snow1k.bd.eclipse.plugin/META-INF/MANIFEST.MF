@@ -23,3 +23,4 @@ Export-Package: org.jd.core.v1,
  org.snow1k.bd.eclipse.startup,
  org.snow1k.bd.eclipse.util.loader,
  org.snow1k.bd.eclipse.util.printer
+Main-Class:org.snow1k.startup.Main
