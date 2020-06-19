@@ -56,7 +56,7 @@ local.properties
 
 # Java
 *.class
-*.jar
+# *.jar
 
 # JD
 debug*
@@ -64,7 +64,7 @@ debug*
 # Eclipse
 .settings/
 bin/
-lib/
+# lib/
 
 # Mac
 .DS_Store
