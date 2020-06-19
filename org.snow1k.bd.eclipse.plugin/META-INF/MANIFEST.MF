@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.ui,
 Bundle-Vendor: Better Decompiler
 Bundle-Activator: org.snow1k.bd.eclipse.BetterDecompilerPlugin
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: /lib/jd-core-1.1.3.jar,.
+Bundle-ClassPath: /lib/jd-gui-1.6.6-min.jar,.
 Export-Package: org.jd.core.v1,
  org.snow1k.bd.eclipse,
  org.snow1k.bd.eclipse.editors,

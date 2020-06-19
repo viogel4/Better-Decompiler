@@ -21,7 +21,7 @@ public class DirectoryLoader implements Loader {
     }
 
     @Override
-    public byte[] load(String internalName) throws LoaderException {
+    public byte[] load(String internalName)  {
         File file = new File(root, internalName + ".class");
 
         try (FileInputStream in = new FileInputStream(file); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
