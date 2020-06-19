@@ -7,4 +7,8 @@
 
 
 
-此分支中
+手动编译生成的jd-gui-1.6.6-min.jar中的Loader类中的load方法没有抛出异常。
+
+
+
+而org.jd.core-1.1.3.jar以及jd-gui-1.6.6.jar包中的Loader类中的load方法，则都有抛出异常。问题原因未定位。
